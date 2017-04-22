@@ -1,6 +1,14 @@
-import { createStore } from 'redux';
-import appStore from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+
+import createSagaMiddleware from 'redux-saga';
+import dataSaga from './saga';
+
+import app from './reducers';
+
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore() {
-  return createStore(appStore);
+  const store = createStore(app, applyMiddleware(sagaMiddleware));
+  sagaMiddleware.run(dataSaga);
+  return store;
 }
