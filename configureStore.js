@@ -1,6 +1,7 @@
-import { createStore } from 'redux';
-import appStore from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import app from './reducers';
 
 export default function configureStore() {
-  return createStore(appStore);
+  return createStore(app, applyMiddleware(thunk));
 }
